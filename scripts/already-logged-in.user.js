@@ -14,12 +14,13 @@ let popupBlock;
 const removeLoggedInPopups = () => {
   popupBlock.classList.remove("sapUiBLy");
   document.getElementById("__mbox0").innerHTML = "";
+  document.querySelector("html").classList.remove("sapUiBLyBack");
 }
 
 (function() {
   'use strict';
   const repeating = setInterval(function() {
-    popupBlock = document.getElementById("sap-ui-blocklayer-popup")
+    popupBlock = document.getElementById("sap-ui-blocklayer-popup");
     if(typeof popupBlock !== "undefined") {
       removeLoggedInPopups();
       clearInterval(repeating);

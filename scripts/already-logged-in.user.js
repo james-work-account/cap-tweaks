@@ -5,8 +5,8 @@
 // @description  Sometimes when you refresh the page or use the browser's "Back" button, it locks you out claiming it "is open in another browser window / tab. Please close all browsers and try again." - this script fixes this.
 // @author       James Whiteley
 // @match        https://myconnect.capgemini.com/sap/bc/ui5_ui5/sap/zmypath/index.html*
-// @updateURL    https://github.com/james-work-account/mypath-tweaks/raw/master/scripts/already-logged-in.user.js
-// @downloadURL  https://github.com/james-work-account/mypath-tweaks/raw/master/scripts/already-logged-in.user.js
+// @updateURL    https://github.com/james-work-account/cap-tweaks/raw/master/scripts/already-logged-in.user.js
+// @downloadURL  https://github.com/james-work-account/cap-tweaks/raw/master/scripts/already-logged-in.user.js
 // @grant        none
 // ==/UserScript==
 

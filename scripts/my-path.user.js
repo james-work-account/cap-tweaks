@@ -2,9 +2,11 @@
 // @name         MY Path
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
+// @description  MY PATH
 // @author       You
 // @match        https://myconnect.capgemini.com/sap/bc/ui5_ui5/sap/zmypath/index.html*
+// @updateURL    https://github.com/james-work-account/cap-tweaks/raw/master/scripts/my-path.user.js
+// @downloadURL  https://github.com/james-work-account/cap-tweaks/raw/master/scripts/my-path.user.js
 // @grant        none
 // ==/UserScript==
 

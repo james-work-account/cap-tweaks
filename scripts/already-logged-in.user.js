@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Fix Already Logged In
 // @namespace    james-work-account
-// @version      0.2
+// @version      0.3
 // @description  Sometimes when you refresh the page or use the browser's "Back" button, it locks you out claiming it "is open in another browser window / tab. Please close all browsers and try again." - this script fixes this.
 // @author       James Whiteley
 // @match        https://myconnect.capgemini.com/sap/bc/ui5_ui5/sap/zmypath/index.html*
@@ -11,17 +11,23 @@
 // ==/UserScript==
 
 let popupBlock;
-const removeLoggedInPopups = () => {
-    popupBlock.classList.remove("sapUiBLy");
+
+function hide(element) {
+    // it's easier to just shove this behind the other elements instead of trying to remove it
+    if(element) element.style.zIndex = -1;
+}
+
+function popupBlockIsPresent() {
+  return typeof popupBlock !== "undefined" && popupBlock !== null
+}
+
+function removeLoggedInPopups() {
+    if(popupBlockIsPresent()) popupBlock.classList.remove("sapUiBLy");
     const boxes = Array.from(document.querySelectorAll("#__mbox0"))
     for(const box of boxes) {
-        box.style.border = "";
-        box.style.display = "none";
-        box.style.height = 0;
-        box.style.width = 0;
-        box.innerHTML = "";
+        hide(box);
     }
-    document.getElementById("sap-ui-static").innerHTML = "";
+    hide(document.getElementById("sap-ui-static"));
     document.querySelector("html").classList.remove("sapUiBLyBack");
 }
 
@@ -29,12 +35,13 @@ const removeLoggedInPopups = () => {
     'use strict';
     const repeating = setInterval(function() {
         popupBlock = document.getElementById("sap-ui-blocklayer-popup");
-        if(typeof popupBlock !== "undefined" && popupBlock !== null) {
+        if(popupBlockIsPresent()) {
             removeLoggedInPopups();
-            clearInterval(repeating);
         }
-    }, 100);
+    }, 1000);
 
-    // stop after 10 seconds if the element never exists - it is futile (the issue isn't there in the first place or something else went wrong with the script)
-    setTimeout(() => { clearInterval(repeating); }, 10000);
+    // there's an event listener somewhere that adds the popup back if the page is clicked on
+    // to counter this, here's an event listener on the body which re-hides the popup when the document body is clicked
+    // wait 10ms in case it doesn't pop up immediately
+    document.body.addEventListener("click", (e) => setTimeout(removeLoggedInPopups, 10));
 })();
